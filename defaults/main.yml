@@ -1,0 +1,12 @@
+---
+datadog_agent_user_name: dd-agent
+datadog_agent_user_group: dd-agent
+datadog_agent_haproxy_tags: "{{ datadog_agent_tags | default([]) }}"
+datadog_agent_haproxy_stats_username: datadog
+datadog_agent_haproxy_stats_password: changeme
+datadog_agent_haproxy_config:
+  init_config: null
+  instances:
+    - url: http://localhost:9000/haproxy_stats
+      username: "{{ datadog_agent_haproxy_stats_username }}"
+      password: "{{ datadog_agent_haproxy_stats_password }}"

@@ -1,0 +1,14 @@
+---
+- name: Install datadog agent config for haproxy
+  copy:
+    backup: yes
+    content: "{{ datadog_agent_haproxy_config | to_nice_yaml }}"
+    mode: 0444
+    owner: "{{ datadog_agent_user_name }}"
+    group: "{{ datadog_agent_user_group }}"
+    dest: /etc/datadog-agent/conf.d/haproxy.d/conf.yaml
+  register: install_agent_config
+
+- name: Restart Datadog agent
+  service: name=datadog-agent state=restarted
+  when: install_agent_config is changed
